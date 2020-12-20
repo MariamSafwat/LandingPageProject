@@ -39,42 +39,66 @@ nav_bar_ul.appendChild(fragment);
 
 const nav_li_list = nav_bar_ul.getElementsByClassName('menu__link');
 
-//Select the active section while scrolling
 
-document.addEventListener('scroll', function (){
-	
-	for (section of sections){
-	// Add class 'active' to section when near top of viewport
+/*
+for(linkk of links){
+	linkk.addEventListener('click', function(){
+		console.log(linkk.parentElement);
 
-	let sectionPosition = section.getBoundingClientRect();
-	
-	if(sectionPosition.top >= 0 && sectionPosition.top <= 150){
-		// this section is at top so its active active
-		// remove active class from other sections
-		for (sec of sections){
-			sec.classList.remove('your-active-class');
-		}
-		section.classList.add('your-active-class');
+		document.removeEventListener('scroll', scrollingFunction);
 
-		// select the active section in the nav bar
-		for (nav_li of nav_li_list){
-			if (nav_li.textContent == section.getAttribute('data-nav')){
-				//remove active class from other nav bar elements
-				for (navliEL of nav_li_list){
-					navliEL.classList.remove('active');
-				}
-				nav_li.classList.add('active'); 
+		for (sect of sections){
+			if (linkk.innerHTML == sect.getAttribute('data-nav') ) {
+				console.log(linkk.parentElement);
+				sect.scrollIntoView({ block: 'end',  behavior: 'smooth' });
 			}
 		}
 
-	}
+
+	});
 }
-} );
+*/
+//Select the active section while scrolling
+document.addEventListener('scroll', scrolling =>{
+	sections.forEach(section => {
+		let sectionPosition = section.getBoundingClientRect();
+		if(sectionPosition.top >= 0 && sectionPosition.top <= 150){
+			// this section is at top so its active active
+			// remove active class from other sections
+			for (sec of sections){
+				sec.classList.remove('your-active-class');
+			}
+			section.classList.add('your-active-class');
+			// select the active section in the nav bar
+			for (nav_li of nav_li_list){
+				if (nav_li.textContent == section.getAttribute('data-nav')){
+					//remove active class from other nav bar elements
+					for (navliEL of nav_li_list){
+						navliEL.classList.remove('active');
+					}
+					nav_li.classList.add('active'); 
+				}
+			}
+		}
+	})
 
-// go to section on link click
+} )
 
-const links = document.querySelectorAll('a');
 
+// scroll to section on link click
+document.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', event => {
+    for (sect of sections){
+			if (link.innerHTML == sect.getAttribute('data-nav') ) {
+				sect.scrollIntoView({ block: 'end',  behavior: 'smooth' });
+			}
+		}
+
+  })
+})
+
+
+/*
 for(link of links){
 	for(section of sections){
 		if(link.parentElement.textContent == section.getAttribute('data-nav') ){
@@ -82,6 +106,7 @@ for(link of links){
 		}
 	}
 }
+*/
 
 
 
